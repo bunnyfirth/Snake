@@ -37,12 +37,12 @@ def outside_window():
     left_wall = -t.window_width() / 2
     right_wall = t.window_width() / 2
     top_wall = t.window_height() / 2
-    bottem_wall = t.window_height() / 2
-    (x, y) = caterpillar.pos
+    bottom_wall = -t.window_height() / 2
+    (x, y) = caterpillar.pos()
     outside = \
             x< left_wall or \
             x> right_wall or \
-            y< bottem_wall or \
+            y< bottom_wall or \
             y> top_wall
     return outside
 
@@ -55,8 +55,6 @@ def game_over():
 
 def display_score(current_score):
     scoreturtle.clear()
-    score = 0
-    text_turtle.clear()
     scoreturtle.penup()
     x = (t.window_width() / 2) -50
     y = (t.window_height() / 2) -50
@@ -71,12 +69,14 @@ def place_leaf():
     leaf.showturtle()
 
 def start_game():
-    print("I got to start game")
     global game_started
     if game_started:
         return
     game_started = True
     
+    score = 0
+    text_turtle.clear()
+
     caterpillar_speed = 2
     caterpillar_length = 3
     caterpillar.shapesize(1, caterpillar_length, 1)
