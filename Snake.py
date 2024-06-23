@@ -34,16 +34,41 @@ scoreturtle.hideturtle()
 scoreturtle.speed(0)
 
 def outside_window():
-    pass
+    left_wall = -t.window_width() / 2
+    right_wall = t.window_width() / 2
+    top_wall = t.window_height() / 2
+    bottem_wall = t.window_height() / 2
+    (x, y) = caterpillar.pos
+    outside = \
+            x< left_wall or \
+            x> right_wall or \
+            y< bottem_wall or \
+            y> top_wall
+    return outside
 
 def game_over():
-    pass
+    caterpillar.color('yellow')
+    leaf.color('yellow')
+    t.penup
+    t.hideturtle
+    t.write('GAME OVER', align='center', font=('Arial', 30, 'normal'))
 
 def display_score(current_score):
-    pass
-
+    scoreturtle.clear()
+    score = 0
+    text_turtle.clear()
+    scoreturtle.penup()
+    x = (t.window_width() / 2) -50
+    y = (t.window_height() / 2) -50
+    scoreturtle.setpos(x, y)
+    scoreturtle.write(str(current_score), align='right', \
+        font=('Arial', 40, 'bold'))
+    
 def place_leaf():
-    pass
+    leaf.hideturtle()
+    leaf.setx(random.randint(-200, 200))
+    leaf.sety(random.randint(-200, 200))
+    leaf.showturtle()
 
 def start_game():
     print("I got to start game")
@@ -51,10 +76,7 @@ def start_game():
     if game_started:
         return
     game_started = True
-
-    score = 0
-    text_turtle.clear()
-
+    
     caterpillar_speed = 2
     caterpillar_length = 3
     caterpillar.shapesize(1, caterpillar_length, 1)
@@ -76,7 +98,27 @@ def start_game():
             break
     
     print("Finished start game")
-  
+
+def move_up():
+    if caterpillar.heading() == 0 or caterpillar.heading() == 180:
+        caterpillar.setheading(90)
+        
+def move_down():
+    if caterpillar.heading() == 0 or caterpillar.heading() == 180:
+        caterpillar.setheading(270)
+        
+def move_left():
+    if caterpillar.heading() == 90 or caterpillar.heading() == 270:
+        caterpillar.setheading(180)
+        
+def move_right():
+    if caterpillar.heading() == 90 or caterpillar.heading() == 270:
+        caterpillar.setheading(0)
+        
 t.onkey(start_game, 'space')
+t.onkey(move_up, 'Up')
+t.onkey(move_down, 'Down')
+t.onkey(move_left, 'Left')
+t.onkey(move_right, 'Right')
 t.listen()
 t.mainloop()
