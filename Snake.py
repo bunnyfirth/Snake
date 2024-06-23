@@ -13,7 +13,8 @@ caterpillar.hideturtle()
 
 leaf = t.Turtle()
 leaf_name = 'leaf'
-leaf_shape = ((0, 0), (14, 2), (18, 6), (20, 20), (6, 18), (2, 12))
+leaf_shape = ((0, 0), (14, 2), (18, 6), (20, 20), \
+              (6, 18), (2, 14))
 t.register_shape(leaf_name, leaf_shape)
 leaf.shape(leaf_name)
 leaf.color('green')
@@ -24,7 +25,8 @@ leaf.speed(0)
 game_started = False
 
 text_turtle = t.Turtle()
-text_turtle.write('Press SPACE to start', align='center', font=('Arial', 16, 'bold'))
+text_turtle.write('Press SPACE to start', align='center', \
+                  font=('Arial', 16, 'bold'))
 text_turtle.hideturtle()
 
 scoreturtle = t.Turtle()
@@ -37,11 +39,11 @@ def outside_window():
 def game_over():
     pass
 
-def display_score():
+def display_score(current_score):
     pass
 
 def place_leaf():
-     while True:
+    while True:
         caterpillar.forward(caterpillar_speed)
         if caterpillar.distance(leaf) < 20:
             place_leaf()
@@ -64,11 +66,12 @@ def start_game():
         return
     game_started = True
 
-    score1 = 0
+    score = 0
     text_turtle.clear()
 
     caterpillar_speed = 2
     caterpillar_length = 3
     caterpillar.shapesize(1, caterpillar_length, 1)
     caterpillar.showturtle()
+    display_score(score)
     place_leaf()
